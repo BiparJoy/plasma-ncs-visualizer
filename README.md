@@ -109,6 +109,8 @@ because kpackagetool does not preserve the executable bit.
 | **CAVA** | Capture device and method, bar count, cutoff frequencies, smoothing, sensitivity |
 | **General** | Desktop background, panel sizing, auto-hide when idle, pause on fullscreen/maximised windows, debug readout |
 
+See [Resource usage](#resource-usage) before leaving it running all day.
+
 If it does not behave the way you want:
 
 - Sphere barely moves → raise **Motion → Audio gain**. Stereo capture reads
@@ -137,8 +139,8 @@ CAVA ──stdout──> ProcessMonitor ──> Cava.qml ──> analyseBars() �
 
 - **`plugin/`** is a `QQuickFramebufferObject`. Each frame it renders the four
   passes into its own FBO with raw OpenGL, and Qt Quick composites that FBO like
-  any other item. Per-frame CPU cost is essentially nil — the widget only
-  updates two floats.
+  any other item. The QML side only updates two floats per frame — but driving a
+  60 fps repaint is not free for the shell, see [Resource usage](#resource-usage).
 - **`package/`** is an ordinary Plasma applet. `NcsOrb.qml` owns the motion model
   and a `FrameAnimation` decimated to the configured frame cap.
   `NcsSurface.qml` exists solely so `NcsOrb` can load the plugin through a
@@ -209,6 +211,39 @@ journalctl --user -t plasmashell -f | grep tausif.aurora.ncs
 ```
 
 Enable **General → Debug mode** to raise the log level.
+
+## Resource usage
+
+Measured on an Intel Iris Xe (Alder Lake GT2, Mesa 26.2), Plasma 6.7 on Wayland,
+widget floating on the desktop at 400x400 with the default 322x322 dots at
+60 fps. Baseline is the same session with the widget stopped.
+
+| | Baseline | Widget running | Cost |
+| --- | --- | --- | --- |
+| `plasmashell` CPU | 9.9 % | 33.5 – 42.1 % | **+24 to +32 %** of one core |
+| `cava` CPU | — | 3.1 % | +3 % |
+| `commandMonitor` CPU (Python bridge) | — | 2.0 % | +2 % |
+| GPU Render/3D busy | 39.4 % | 60.5 % | **+21 pp** |
+| GPU power | 1.94 W | 6.66 W | **+4.7 W** |
+| GPU clock | 610 MHz | 1091 MHz | +481 MHz |
+| RAM | — | — | **~45 MB** (≈7 MB in plasmashell, 10 MB cava, 28 MB bridge) |
+
+So roughly **a third of one CPU core and ~5 W of GPU** on this hardware. That is
+not a background trinket — it is a 60 fps full-redraw of a desktop widget, and
+the CPU goes on the shell's render loop and the GL submit path rather than on
+the dots themselves (all 103,684 of those are on the GPU).
+
+Ways to bring it down, most effective first:
+
+- **Lower the frame cap.** Appearance → Frame rate limit. At 30 fps the GPU cost
+  roughly halves (+2.5 W instead of +4.7 W).
+- **Leave "pause on fullscreen window" on** (the default) so it stops entirely
+  during video and games.
+- **Turn on auto-hide when idle** so it stops when nothing is playing.
+- **Make the widget smaller.** Cost scales with pixel area, not dot count —
+  dropping the dots per side barely helps, shrinking the sphere does.
+- **Build the C++ CAVA process plugin** from
+  [plasma-audio-visualizer][pav] to retire the Python bridge (~2 % of a core).
 
 ## Known issues
 
