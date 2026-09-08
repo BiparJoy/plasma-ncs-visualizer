@@ -14,7 +14,7 @@
         "Id": "tausif.aurora.ncs.visualizer",
         "License": "GPL-3.0",
         "Name": "Aurora NCS Visualizer",
-        "Version": "1.0.0"
+        "Version": "1.0.1"
     },
     "X-Plasma-API-Minimum-Version": "6.0"
 }

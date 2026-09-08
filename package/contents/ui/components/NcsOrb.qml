@@ -1,4 +1,6 @@
 import QtQuick
+import QtQuick.Layouts
+import org.kde.kirigami as Kirigami
 import "../code/ncs.js" as Ncs
 
 // Drives the NCS visualizer.
@@ -47,7 +49,7 @@ Item {
     readonly property bool pluginMissing: loader.status === Loader.Error
     readonly property string rendererError: {
         if (pluginMissing) {
-            return i18n("GPU renderer plugin not installed - run install-plugin.sh");
+            return i18n("GPU renderer plugin not installed");
         }
         return loader.item ? loader.item.error : "";
     }
@@ -139,6 +141,54 @@ Item {
             item.dotScale = Qt.binding(() => root.dotScale);
             item.glowScale = Qt.binding(() => root.glowScale);
             item.seed = Qt.binding(() => root.seed);
+        }
+    }
+
+    // --- renderer missing / failed ---------------------------------------
+    // Shown unconditionally, not just in debug mode: without the compiled
+    // plugin there is nothing else on screen, and a blank widget gives the user
+    // no idea why.
+    Rectangle {
+        anchors.fill: parent
+        visible: root.rendererError !== ""
+        color: Qt.rgba(0, 0, 0, 0.35)
+        radius: Kirigami.Units.cornerRadius
+        border.width: 1
+        border.color: Kirigami.Theme.negativeTextColor
+
+        ColumnLayout {
+            anchors.centerIn: parent
+            anchors.margins: Kirigami.Units.smallSpacing
+            width: parent.width - Kirigami.Units.largeSpacing * 2
+            spacing: Kirigami.Units.smallSpacing
+
+            Kirigami.Icon {
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                Layout.preferredHeight: Layout.preferredWidth
+                source: "dialog-error-symbolic"
+                color: Kirigami.Theme.negativeTextColor
+                isMask: true
+                visible: root.height > Kirigami.Units.iconSizes.medium * 4
+            }
+            Text {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                color: Kirigami.Theme.negativeTextColor
+                font: Kirigami.Theme.smallFont
+                text: root.rendererError
+            }
+            Text {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                color: Kirigami.Theme.textColor
+                font: Kirigami.Theme.smallFont
+                opacity: 0.8
+                visible: root.pluginMissing && root.height > Kirigami.Units.gridUnit * 8
+                text: i18n("Build it with install-plugin.sh from the project sources.")
+            }
         }
     }
 
