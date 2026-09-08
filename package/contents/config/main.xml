@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+
+  <group name="General">
+
+    <!-- ── the orb ─────────────────────────────────────────────────── -->
+    <!-- 322 is what the original uses: 322*322 = 103,684 dots -->
+    <entry name="dotCount" type="Int">
+      <default>322</default>
+    </entry>
+    <entry name="targetFps" type="Int">
+      <default>60</default>
+    </entry>
+    <entry name="orbScale" type="Double">
+      <default>1.0</default>
+    </entry>
+    <entry name="dotScale" type="Double">
+      <default>1.0</default>
+    </entry>
+    <entry name="glowScale" type="Double">
+      <default>1.0</default>
+    </entry>
+    <entry name="seed" type="Int">
+      <default>1234</default>
+    </entry>
+
+    <!-- ── colour ──────────────────────────────────────────────────── -->
+    <!-- 0 = custom, 1 = Plasma accent colour, 2 = slow hue cycle -->
+    <entry name="colorSource" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="coreColor" type="String">
+      <default>#ff2e88</default>
+    </entry>
+    <entry name="glowColor" type="String">
+      <default>#ff2e88</default>
+    </entry>
+    <entry name="linkGlowColor" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="hueCycleSpeed" type="Double">
+      <default>0.02</default>
+    </entry>
+
+    <!-- ── motion ──────────────────────────────────────────────────── -->
+    <!-- 0 = the original's 0.15s moving average, 1 = Aurora spring + punch -->
+    <entry name="motionModel" type="Int">
+      <default>0</default>
+    </entry>
+    <entry name="audioGain" type="Double">
+      <default>1.0</default>
+    </entry>
+    <entry name="averageWindow" type="Double">
+      <default>0.15</default>
+    </entry>
+    <entry name="flowSpeed" type="Double">
+      <default>1.0</default>
+    </entry>
+    <entry name="bodyStiffness" type="Double">
+      <default>20.0</default>
+    </entry>
+    <entry name="bodyDamping" type="Double">
+      <default>0.85</default>
+    </entry>
+    <entry name="levelSmooth" type="Double">
+      <default>6.5</default>
+    </entry>
+    <entry name="punch" type="Double">
+      <default>0.5</default>
+    </entry>
+    <entry name="beatDecay" type="Double">
+      <default>7.0</default>
+    </entry>
+    <entry name="onset" type="Double">
+      <default>1.18</default>
+    </entry>
+
+    <!-- ── CAVA ────────────────────────────────────────────────────── -->
+    <entry name="framerate" type="Int">
+      <default>60</default>
+    </entry>
+    <entry name="barCount" type="Int">
+      <default>32</default>
+    </entry>
+    <entry name="noiseReduction" type="Int">
+      <default>55</default>
+    </entry>
+    <entry name="monstercat" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="waves" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="autoSensitivity" type="Int">
+      <default>1</default>
+    </entry>
+    <entry name="sensitivityEnabled" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="sensitivity" type="Int">
+      <default>100</default>
+    </entry>
+    <entry name="lowerCutoffFreq" type="Int">
+      <default>50</default>
+    </entry>
+    <entry name="higherCutoffFreq" type="Int">
+      <default>10000</default>
+    </entry>
+    <entry name="inputMethod" type="String">
+      <default></default>
+    </entry>
+    <entry name="inputSource" type="String">
+      <default></default>
+    </entry>
+    <entry name="sampleRate" type="Int">
+      <default>44100</default>
+    </entry>
+    <entry name="sampleBits" type="Int">
+      <default>16</default>
+    </entry>
+    <entry name="inputChannels" type="Int">
+      <default>2</default>
+    </entry>
+    <entry name="autoconnect" type="Int">
+      <default>2</default>
+    </entry>
+    <entry name="active" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="remix" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="virtual" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="outputChannels" type="String">
+      <default>mono</default>
+    </entry>
+    <entry name="monoOption" type="String">
+      <default>average</default>
+    </entry>
+    <entry name="eqEnabled" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="eq" type="StringList">
+      <default>1.0,1.0,1.0,1.0,1.0</default>
+    </entry>
+
+    <!-- ── general behaviour ───────────────────────────────────────── -->
+    <entry name="debugMode" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="hideWhenIdle" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="idleTimer" type="Int">
+      <default>5</default>
+    </entry>
+    <entry name="cavaSleepTimer" type="Int">
+      <default>5</default>
+    </entry>
+    <entry name="desktopWidgetBg" type="Int">
+      <default>1</default>
+    </entry>
+    <entry name="fillPanel" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="expanding" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="length" type="Int">
+      <default>64</default>
+    </entry>
+    <entry name="minimumLength" type="Int">
+      <default>32</default>
+    </entry>
+    <entry name="hideToolTip" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="disableLeftClick" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="pauseOnFullScreenWindow" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry name="pauseOnMaximizedWindow" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry name="_stopCava" type="Bool">
+      <default>false</default>
+    </entry>
+
+  </group>
+</kcfg>

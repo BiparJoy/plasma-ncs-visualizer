@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "BiparJoy@users.noreply.github.com",
+                "Name": "Tausif"
+            }
+        ],
+        "Category": "Multimedia",
+        "Description": "Aurora's NCS particle-sphere visualizer, driven by CAVA",
+        "EnabledByDefault": false,
+        "Icon": "waveform-symbolic",
+        "Id": "tausif.aurora.ncs.visualizer",
+        "License": "GPL-3.0",
+        "Name": "Aurora NCS Visualizer",
+        "Version": "1.0.0"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
